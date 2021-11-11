@@ -16,3 +16,9 @@
 7. Run `export.sh` or `export.cmd` depending on your platform
 8. Check ./db-output/output.sql for your results (make sure it isn't an error message before you proceed)
 9. Close everything with `docker-compose down`
+
+### CLI
+
+If you want to use the CLI for some reason, do the above but use `cli.sh` instead of steps 4-6. If you're on Windows, just copy the last line of that file and use that.
+
+e.g. `./cli.sh -s foo -r bar`
