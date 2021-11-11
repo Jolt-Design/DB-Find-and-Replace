@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  interface:
+    image: jolt-db-find-replace
+    build:
+      context: .
+    ports:
+      - 8080:80
+    volumes:
+      - ./src/:/var/www/html/:delegated
+    restart: on-failure:10
+
+  db:
+    image: mariadb:10
+    restart: on-failure:10
+    ports:
+      - 3306
+    volumes:
+      - ./db-seed-input/:/docker-entrypoint-initdb.d/:ro
+      # Data persistence is disabled by default - uncomment this and the entry in volumes: at the bottom of the file if you need it
+      # - db_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: joltwppass
+
+  adminer:
+    build:
+      context: adminer
+    restart: on-failure:10
+    volumes:
+      - adminer_sessions:/sessions/:delegated
+    ports:
+      - 8081:8080
+    links:
+      - db
+
+volumes:
+  # db_data:
+  adminer_sessions:
