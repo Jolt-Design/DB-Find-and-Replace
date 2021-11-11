@@ -23,7 +23,7 @@ services:
     environment:
       MYSQL_DATABASE: database
       MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: joltwppass
+      MYSQL_ROOT_PASSWORD: joltdbpass
 
   adminer:
     build:
