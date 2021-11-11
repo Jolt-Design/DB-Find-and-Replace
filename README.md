@@ -5,7 +5,7 @@
 1. Put a dump of the database you want to work on in the db-seed-input folder
 2. Run `docker-compose up -d`
 3. Check that there are no errors importing the file with `docker-compose logs db`
-4. Once everything has finished loading, go to http://localhost:8080/
+4. Once everything has finished loading, go to <http://localhost:8080/>
 5. Database details are:
   - Database name: `database`
   - Username: `root`
