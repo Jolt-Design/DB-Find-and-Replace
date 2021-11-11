@@ -22,3 +22,7 @@
 If you want to use the CLI for some reason, do the above but use `cli.sh` instead of steps 4-6. If you're on Windows, just copy the last line of that file and use that.
 
 e.g. `./cli.sh -s foo -r bar`
+
+### Adminer
+
+The setup provides a web interface for the SQL DB at <http://localhost:8081/>. Use the DB credentials mentioned in step 5 to connect and do whatever you want.
