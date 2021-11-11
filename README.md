@@ -1,5 +1,9 @@
 # Jolt DB Find and Replace
 
+## Premise
+
+This runs a copy of [Search Replace DB by Interconnectit](https://github.com/interconnectit/Search-Replace-DB/) in Docker. See the readme in `./src/README.md` for advanced usage.
+
 ## Usage
 
 1. Put a dump of the database you want to work on in the db-seed-input folder
