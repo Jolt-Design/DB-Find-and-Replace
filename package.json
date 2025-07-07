@@ -1,0 +1,12 @@
+{
+  "name": "@joltdesign/db-find-replace",
+  "packageManager": "yarn@4.9.2+sha512.1fc009bc09d13cfd0e19efa44cbfc2b9cf6ca61482725eb35bbc5e257e093ebf4130db6dfe15d604ff4b79efd8e1e8e99b25fa7d0a6197c9f9826358d4d65c3c",
+  "private": true,
+  "devDependencies": {
+    "@joltdesign/scripts": "^0.14.1"
+  },
+  "scripts": {
+    "cli": "jolt cmd -q '{cmd:compose}' exec interface php srdb.cli.php -h '{db:host}' -u '{db:user}' -p'{db:pass}' -n '{db:db}'",
+    "export": "jolt cmd -q '{cmd:compose}' exec '{db:host}' '{db:dumpCmd}' -h '{db:host}' -u '{db:user}' -p'{db:pass}' -n '{db:db}' > ./db-output/output.sql"
+  }
+}
