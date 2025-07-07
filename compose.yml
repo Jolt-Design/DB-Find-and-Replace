@@ -1,6 +1,6 @@
 services:
   interface:
-    image: jolt-db-find-replace
+    image: joltdesign/db-find-replace
     build:
       context: .
       dockerfile: Containerfile
