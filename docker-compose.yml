@@ -12,7 +12,7 @@ services:
     restart: on-failure:10
 
   db:
-    image: mariadb:10
+    image: mariadb:11
     restart: on-failure:10
     ports:
       - 3306
