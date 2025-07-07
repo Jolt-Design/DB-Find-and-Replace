@@ -5,6 +5,7 @@ services:
     image: jolt-db-find-replace
     build:
       context: .
+      dockerfile: Containerfile
     ports:
       - 8080:80
     volumes:
