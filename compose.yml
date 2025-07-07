@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   interface:
     image: jolt-db-find-replace
