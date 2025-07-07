@@ -25,16 +25,12 @@ services:
       MYSQL_ROOT_PASSWORD: joltdbpass
 
   adminer:
-    build:
-      context: adminer
+    image: joltdesign/adminer
     restart: unless-stopped
-    volumes:
-      - adminer_sessions:/sessions/:delegated
     ports:
       - 8081:8080
-    links:
-      - db
-
-volumes:
-  # db_data:
-  adminer_sessions:
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: database
+      MYSQL_USER: root
+      MYSQL_PASSWORD: joltdbpass
