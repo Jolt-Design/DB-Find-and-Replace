@@ -10,11 +10,11 @@ services:
       - 8080:80
     volumes:
       - ./src/:/var/www/html/:delegated
-    restart: on-failure:10
+    restart: unless-stopped
 
   db:
     image: mariadb:11
-    restart: on-failure:10
+    restart: unless-stopped
     ports:
       - 3306
     volumes:
@@ -29,7 +29,7 @@ services:
   adminer:
     build:
       context: adminer
-    restart: on-failure:10
+    restart: unless-stopped
     volumes:
       - adminer_sessions:/sessions/:delegated
     ports:
