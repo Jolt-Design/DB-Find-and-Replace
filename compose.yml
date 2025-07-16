@@ -1,9 +1,16 @@
 services:
   interface:
     image: joltdesign/db-find-replace
+    profiles:
+      - ""
+      - test
     build:
       context: .
       dockerfile: Containerfile
+    environment:
+      TEST_DB_HOST: test_db
+      TEST_DB_USER: root
+      TEST_DB_PASS: dbpass
     ports:
       - 8080:80
     volumes:
@@ -23,6 +30,16 @@ services:
       MYSQL_DATABASE: database
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: joltdbpass
+
+  test_db:
+    image: mariadb:11
+    profiles: [test]
+    ports:
+      - 3306
+    environment:
+      MARIADB_DATABASE: srdbtest
+      MARIADB_USER: root
+      MARIADB_ROOT_PASSWORD: dbpass
 
   adminer:
     image: joltdesign/adminer
