@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - name: Start Compose containers
+        uses: hoverkraft-tech/compose-action@v2.3.0
+        with:
+          compose-file: compose.yml
+          up-flags: interface test_db
+
+      - name: Execute tests
+        run: |
+          docker compose exec interface php ./vendor/bin/phpunit
