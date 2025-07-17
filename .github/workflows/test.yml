@@ -28,6 +28,11 @@ jobs:
           compose-file: compose.yml
           up-flags: test_db interface
 
+      - name: Wait for DB to be available
+        timeout-minutes: 2
+        run: |
+          while ! docker compose exec test_db mariadb-admin -h 127.0.0.1 -u root -pdbpass ping --silent; do sleep 1; done
+
       - name: Execute tests
         run: |
           docker compose exec interface php ./vendor/bin/phpunit
