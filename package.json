@@ -8,8 +8,9 @@
   },
   "scripts": {
     "cli": "jolt cmd -q '{cmd:compose}' exec interface php srdb.cli.php -h '{db:host}' -u '{db:user}' -p'{db:pass}' -n '{db:db}'",
-    "test": "run-s test:up test:run test:down",
+    "test": "run-s test:up test:await test:run test:down",
     "test:up": "jolt cmd -q '{cmd:compose}' --profile=test up -d test_db interface",
+    "test:await": "jolt db await test_db",
     "test:down": "jolt cmd -q '{cmd:compose}' --profile=test down test_db",
     "test:run": "jolt cmd -q '{cmd:compose}' exec interface php ./vendor/bin/phpunit",
     "export": "jolt cmd -q '{cmd:compose}' exec '{db:host}' '{db:dumpCmd}' -h '{db:host}' -u '{db:user}' -p'{db:pass}' -n '{db:db}' > ./db-output/output.sql"
