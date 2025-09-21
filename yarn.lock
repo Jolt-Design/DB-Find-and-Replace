@@ -275,11 +275,11 @@ __metadata:
   linkType: hard
 
 "pretty-ms@npm:^9.2.0":
-  version: 9.2.0
-  resolution: "pretty-ms@npm:9.2.0"
+  version: 9.3.0
+  resolution: "pretty-ms@npm:9.3.0"
   dependencies:
     parse-ms: "npm:^4.0.0"
-  checksum: 10c0/ab6d066f90e9f77020426986e1b018369f41575674544c539aabec2e63a20fec01166d8cf6571d0e165ad11cfe5a8134a2a48a36d42ab291c59c6deca5264cbb
+  checksum: 10c0/555ea39a1de48a30601938aedb76d682871d33b6dee015281c37108921514b11e1792928b1648c2e5589acc73c8ef0fb5e585fb4c718e340a28b86799e90fb34
   languageName: node
   linkType: hard
 
@@ -374,8 +374,8 @@ __metadata:
   linkType: hard
 
 "zod@npm:^4.1.9":
-  version: 4.1.9
-  resolution: "zod@npm:4.1.9"
-  checksum: 10c0/8aa2f240a3ccd153feb061f8ef17b9a4c2bcc98f1146c16655f8623c628c7376006fb70c5e1adcb655fc3585b848435eec307c5bf690cfedbdb220c567e62075
+  version: 4.1.11
+  resolution: "zod@npm:4.1.11"
+  checksum: 10c0/ce6a4c4acfbf51d7dd0f2669c82f207d62a1f00264eef608994b94eb99d86a74c99f59b0dd3e61ef82909ee136631378b709e0908f0a02a2d5c21d0c497de5db
   languageName: node
   linkType: hard
