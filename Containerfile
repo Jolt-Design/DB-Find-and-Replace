@@ -1,1 +1,1 @@
-FROM joltdesign/php:8.4
+FROM joltdesign/php:8.5
