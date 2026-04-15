@@ -14,7 +14,7 @@
         "issues": "https://github.com/interconnectit/Search-Replace-DB/issues"
     },
     "require-dev": {
-        "phpunit/phpunit": "^13.1.3",
+        "phpunit/phpunit": "^13.1.4",
         "ext-simplexml": "*"
     },
     "scripts": {
