@@ -627,9 +627,9 @@ class icit_srdb_ui extends icit_srdb {
     }
 
     public function isSecure() {
-        return
-            ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off';
-
+        return $_SERVER['HTTP_HOST'] === 'localhost:8080' || (
+            !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'
+        );
     }
 
     public function ui() {
