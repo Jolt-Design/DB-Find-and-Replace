@@ -244,12 +244,16 @@ class icit_srdb {
             'debug'           => false
         ), $args );
 
-        // handle exceptions
-        set_exception_handler( array( $this, 'exceptions' ) );
+        $is_phpunit = defined('PHPUNIT_COMPOSER_INSTALL');
 
-        // handle errors
-        if ( $args['debug'] === false ) {
-            set_error_handler( array( $this, 'error_handler' ), E_ERROR | E_WARNING );
+        // handle exceptions
+        if (!$is_phpunit) {
+            set_exception_handler( array( $this, 'exceptions' ) );
+
+            // handle errors
+            if ( $args['debug'] === false ) {
+                set_error_handler( array( $this, 'error_handler' ), E_ERROR | E_WARNING );
+            }
         }
 
         // Setting this so that mb_split works correctly.
@@ -1414,7 +1418,7 @@ class icit_srdb {
         }
         return false;
     }
-    
+
 }
 
 
