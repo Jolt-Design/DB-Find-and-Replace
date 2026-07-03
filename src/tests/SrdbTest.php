@@ -50,7 +50,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
             'name'  => getenv('TEST_DB_NAME') ?: 'srdbtest',
             'user'  => getenv('TEST_DB_USER') ?: 'travis',
             'pass'  => getenv('TEST_DB_PASS') ?: '',
-            'table' => 'posts'
+            'tables' => ['posts'],
         );
 
         self::$pdo = new PDO( "mysql:host=" . static::$testDb['host'],
@@ -61,7 +61,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
         self::$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
         self::$pdo->query( "CREATE DATABASE IF NOT EXISTS `" . static::$testDb['user'] . "` CHARACTER SET = 'utf8mb4' COLLATE = 'utf8mb4_general_ci';" );
-        self::$pdo->query( "CREATE TABLE IF NOT EXISTS `" . static::$testDb['name'] . "`.`" . static::$testDb['table'] . "` (
+        self::$pdo->query( "CREATE TABLE IF NOT EXISTS `" . static::$testDb['name'] . "`.`" . static::$testDb['tables'][0] . "` (
 				`id` int(11) NOT NULL AUTO_INCREMENT,
 				`content` blob,
 				`url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -80,10 +80,10 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
     }
 
     public static function loadContent(): void {
-        static::$pdo->exec( "TRUNCATE table `" . static::$testDb['table'] . "`" );
+        static::$pdo->exec( "TRUNCATE table `" . static::$testDb['tables'][0] . "`" );
         $stm = self::$pdo->prepare(
             "INSERT INTO
-                        `" . static::$testDb['name'] . "`.`" . static::$testDb['table'] . "`
+                        `" . static::$testDb['name'] . "`.`" . static::$testDb['tables'][0] . "`
                         (`id`, `content`, `url`,`serialised`)
                         VALUES (?, ?, ?, ?)" );
 
@@ -114,7 +114,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
 				LEFT JOIN information_schema.`COLLATION_CHARACTER_SET_APPLICABILITY` c
 				ON (t.`TABLE_COLLATION` = c.`COLLATION_NAME`)
 			WHERE t.table_schema = '" . static::$testDb['name'] . "'
-				AND t.table_name = '" . static::$testDb['table'] . "'
+				AND t.table_name = '" . static::$testDb['tables'][0] . "'
 			LIMIT 1;" );
 
         $encoding = false;
@@ -161,7 +161,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals( 150, $changes, 'Wrong number of cells changed reported' );
 
         // test the database is actually changed
-        $modified = self::$pdo->query( "SELECT url FROM `" . static::$testDb['table'] . "` LIMIT 1;" )->fetchColumn();
+        $modified = self::$pdo->query( "SELECT url FROM `" . static::$testDb['tables'][0] . "` LIMIT 1;" )->fetchColumn();
         $this->assertMatchesRegularExpression( "/{$replace}/", $modified );
 
     }
@@ -196,7 +196,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals( 50, $changes, 'Wrong number of cells changed reported' );
 
         // test the database is actually changed
-        $modified = self::$pdo->query( "SELECT content FROM `" . static::$testDb['table'] . "` LIMIT 1;" )->fetchColumn();
+        $modified = self::$pdo->query( "SELECT content FROM `" . static::$testDb['tables'][0] . "` LIMIT 1;" )->fetchColumn();
         $this->assertMatchesRegularExpression( "/{$replace}/", $modified );
 
     }
@@ -255,7 +255,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals( 100, $changes, 'Wrong number of changes reported' );
 
         // test the database is actually changed
-        $modified = self::$pdo->query( "SELECT url FROM `" . static::$testDb['table'] . "` LIMIT 1;" )->fetchColumn();
+        $modified = self::$pdo->query( "SELECT url FROM `" . static::$testDb['tables'][0] . "` LIMIT 1;" )->fetchColumn();
         $this->assertMatchesRegularExpression( $result, $modified, 'Database not updated, modified result is ' . $modified );
 
     }
@@ -293,7 +293,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals( 50, $changes, 'Wrong number of changes reported' );
 
         // check unserialised values are what they should be
-        $modified = self::$pdo->query( "SELECT serialised FROM `" . static::$testDb['table'] . "` LIMIT 1;" )->fetchColumn();
+        $modified = self::$pdo->query( "SELECT serialised FROM `" . static::$testDb['tables'][0] . "` LIMIT 1;" )->fetchColumn();
         $from     = unserialize( $modified );
 
         $this->assertEquals( $replace, $from['string'], 'Unserialised array value not updated' );
@@ -325,7 +325,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
             "Search replace script database errors were found: \n" . implode( "\n", $srdb->errors['db'] ) );
 
         // check unserialised values are what they should be
-        $modified = self::$pdo->query( "SELECT serialised FROM `" . static::$testDb['table'] . "` LIMIT 1;" )->fetchColumn();
+        $modified = self::$pdo->query( "SELECT serialised FROM `" . static::$testDb['tables'][0] . "` LIMIT 1;" )->fetchColumn();
         $from     = unserialize( $modified );
 
         $this->assertEquals( $replace, $from['nested']['string'], 'Unserialised nested array value not updated' );
@@ -367,7 +367,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
 
 
         // check unserialised values are what they should be
-        $modified = self::$pdo->query( "SELECT content, url FROM `" . static::$testDb['table'] . "` LIMIT 1;" )->fetchAll();
+        $modified = self::$pdo->query( "SELECT content, url FROM `" . static::$testDb['tables'][0] . "` LIMIT 1;" )->fetchAll();
         $content  = $modified[0]['content'];
         $url      = $modified[0]['url'];
 
@@ -410,7 +410,7 @@ class SrdbTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals( 100, $changes, 'Wrong number of changes reported' );
 
         // check unserialised values are what they should be
-        $modified = self::$pdo->query( "SELECT content, url FROM `" . static::$testDb['table'] . "` LIMIT 1;" )->fetchAll();
+        $modified = self::$pdo->query( "SELECT content, url FROM `" . static::$testDb['tables'][0] . "` LIMIT 1;" )->fetchAll();
         $content  = $modified[0]['content'];
         $url      = $modified[0]['url'];
 
