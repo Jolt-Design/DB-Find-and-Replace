@@ -547,11 +547,11 @@ class icit_srdb {
 
         try {
             $params_map = array(
-                'ssl_key'    => PDO::MYSQL_ATTR_SSL_KEY,
-                'ssl_cert'   => PDO::MYSQL_ATTR_SSL_CERT,
-                'ssl_ca'     => PDO::MYSQL_ATTR_SSL_CA,
-                'ssl_ca_dir' => PDO::MYSQL_ATTR_SSL_CAPATH,
-                'ssl_cipher' => PDO::MYSQL_ATTR_SSL_CIPHER
+                'ssl_key'    => Pdo\Mysql::ATTR_SSL_KEY,
+                'ssl_cert'   => Pdo\Mysql::ATTR_SSL_CERT,
+                'ssl_ca'     => Pdo\Mysql::ATTR_SSL_CA,
+                'ssl_ca_dir' => Pdo\Mysql::ATTR_SSL_CAPATH,
+                'ssl_cipher' => Pdo\Mysql::ATTR_SSL_CIPHER,
             );
 
             $params = array();
@@ -563,7 +563,7 @@ class icit_srdb {
             }
 
             if ( PHP_MAJOR_VERSION >= 7 && ! empty( $params ) ) {
-                $params[ PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT ] = $this->ssl_check;
+                $params[ Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT ] = $this->ssl_check;
             }
 
             if ( $this->debug ) {
