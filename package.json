@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "@joltdesign/scripts": "^2.0.0",
-    "npm-run-all2": "^9.0.3"
+    "npm-run-all2": "^9.0.4"
   },
   "scripts": {
     "cli": "jolt cmd -q '{cmd:compose}' exec interface php srdb.cli.php -h '{db:host}' -u '{db:user}' -p'{db:pass}' -n '{db:db}'",
